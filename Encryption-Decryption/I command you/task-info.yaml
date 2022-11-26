@@ -5,8 +5,34 @@ files:
   text: |-
     package encryptdecrypt
 
+    import java.util.*
+
+    val scanner = Scanner(System.`in`)
+
     fun main() {
-        println("Hello World!")
+        val order = scanner.nextLine()
+        val message = scanner.nextLine()
+        val key = scanner.nextInt()
+        val processed = process(order, message, key)
+        println(processed)
+    }
+
+    fun process(order: String, string: String, key: Int): String = when (order) {
+        "enc" -> encrypt(string, key)
+        "dec" -> decrypt(string, key)
+        else -> "Invalid input"
+    }
+
+    fun encrypt(string: String, key: Int): String {
+        var encrypted = ""
+        string.forEach { encrypted += it.plus(key) }
+        return encrypted
+    }
+
+    fun decrypt(string: String, key: Int): String {
+        var decrypted = ""
+        string.forEach { decrypted += it.minus(key) }
+        return decrypted
     }
   learner_created: false
 - name: test/EncryptDecryptTest.java
@@ -79,9 +105,6 @@ files:
         }
     }
   learner_created: false
-feedback_link: https://hyperskill.org/projects/279/stages/1418/implement#comment
+feedback_link: https://hyperskill.org/learn/step/21969#comment
 status: Solved
-feedback:
-  message: Congratulations!
-  time: "Sat, 26 Nov 2022 08:26:19 UTC"
-record: 4
+record: 5

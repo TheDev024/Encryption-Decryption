@@ -5,8 +5,21 @@ files:
   text: |-
     package encryptdecrypt
 
+    import java.util.*
+
+    val scanner = Scanner(System.`in`)
+
+    fun encrypt(string: String, key: Int): String {
+        var encrypted = ""
+        string.forEach { char -> encrypted += if (char.isLetter()) 'a' + (key + (char - 'a')) % 26 else char }
+        return encrypted
+    }
+
     fun main() {
-        println("Hello World!")
+        val message = scanner.nextLine()
+        val key = scanner.nextInt()
+        val encrypted = encrypt(message, key)
+        println(encrypted)
     }
   learner_created: false
 - name: test/EncryptDecryptTest.java
@@ -56,9 +69,6 @@ files:
         }
     }
   learner_created: false
-feedback_link: https://hyperskill.org/projects/279/stages/1417/implement#comment
+feedback_link: https://hyperskill.org/learn/step/21968#comment
 status: Solved
-feedback:
-  message: Congratulations!
-  time: "Sat, 26 Nov 2022 08:14:35 UTC"
 record: 3

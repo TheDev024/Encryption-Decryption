@@ -5,8 +5,56 @@ files:
   text: |-
     package encryptdecrypt
 
-    fun main() {
-        println("Hello World!")
+    import java.io.File
+
+    class EncryptionDecryption {
+        fun cmd(mode: String, data: String, inPath: String, outPath: String, key: Int) {
+            val string =  if (inPath == "") data else {
+                val file = File(inPath)
+                file.readText()
+            }
+            val processed = if (mode == "dec") decrypt(string, key) else encrypt(string, key)
+            if (outPath == "") println(processed) else {
+                val file = File(outPath)
+                file.writeText(processed)
+            }
+        }
+
+        private fun encrypt(string: String, key: Int): String {
+            var encrypted = ""
+            string.forEach { encrypted += it.plus(key) }
+            return encrypted
+        }
+
+        private fun decrypt(string: String, key: Int): String {
+            var decrypted = ""
+            string.forEach { decrypted += it.minus(key) }
+            return decrypted
+        }
+    }
+
+    fun main(args: Array<String>) {
+
+        var mode = ""
+        var data = ""
+        var key = 0
+        var inPath = ""
+        var outPath = ""
+
+        for (i in 1..args.lastIndex step 2) when(args[i - 1]) {
+            "-mode" -> mode = args[i]
+
+            "-data" -> data = args[i]
+
+            "-key" -> key = args[i].toInt()
+
+            "-in" -> inPath = args[i]
+
+            "-out" -> outPath = args[i]
+        }
+
+        val encryptor = EncryptionDecryption()
+        encryptor.cmd(mode, data, inPath, outPath, key)
     }
   learner_created: false
 - name: test/EncryptDecryptTest.java
@@ -176,6 +224,13 @@ files:
 
     }
   learner_created: false
-feedback_link: https://hyperskill.org/projects/279/stages/1420/implement#comment
-status: Unchecked
+- name: output.txt
+  visible: true
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/21971#comment
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">JetBrains
+    Academy</a> to continue learning.
+  time: "Sat, 26 Nov 2022 21:54:06 UTC"
 record: -1

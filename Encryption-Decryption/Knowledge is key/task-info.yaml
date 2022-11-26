@@ -5,8 +5,16 @@ files:
   text: |-
     package encryptdecrypt
 
+    fun encrypt(string: String): String {
+        var encrypted = ""
+        string.forEach { char -> encrypted += if (char.isLetter()) 'a' + ('z' - char) else char }
+        return encrypted
+    }
+
     fun main() {
-        println("Hello World!")
+        val message = "we found a treasure!"
+        val encrypted = encrypt(message)
+        println(encrypted)
     }
   learner_created: false
 - name: test/EncryptDecryptTest.java
@@ -99,9 +107,6 @@ files:
         }
     }
   learner_created: false
-feedback_link: https://hyperskill.org/projects/279/stages/1416/implement#comment
+feedback_link: https://hyperskill.org/learn/step/21967#comment
 status: Solved
-feedback:
-  message: Congratulations!
-  time: "Sat, 26 Nov 2022 07:55:15 UTC"
 record: 2
